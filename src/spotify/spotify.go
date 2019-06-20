@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/zmb3/spotify"
+	"log"
 )
 
 type Track struct {
@@ -22,6 +23,17 @@ type UserMusic struct {
 	Playlists  []Playlist
 	TopArtists []TopArtist
 	Tracks     []Track
+}
+
+func AuthenticateAndLogUser() *spotify.Client {
+	client := Authenticate()
+	// use the client to make calls that require authorization
+	user, err := client.CurrentUser()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("You are logged in as:", user.ID)
+	return client
 }
 
 func CurrentUserGetAllPlaylistTracks(client *spotify.Client, playlists []Playlist) []Track {

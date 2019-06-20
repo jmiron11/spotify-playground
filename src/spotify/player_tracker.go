@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/zmb3/spotify"
 	"gopkg.in/mgo.v2"
-	"log"
 	"time"
 )
 
@@ -18,17 +17,6 @@ func PlayerTrack(client *spotify.Client) {
 		track := currently_playing.Item
 		fmt.Printf("User is playing the song %s, t: %d, p: %d\n", track.Name, currently_playing.Timestamp, currently_playing.Progress)
 	}
-}
-
-func AuthenticateAndLogUser() *spotify.Client {
-	client := Authenticate()
-	// use the client to make calls that require authorization
-	user, err := client.CurrentUser()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("You are logged in as:", user.ID)
-	return client
 }
 
 func StartIntervalPlayerTracker(client *spotify.Client) {
@@ -68,17 +56,17 @@ type Person struct {
 	Phone string
 }
 
-func main() {
-	// spotify_client := AuthenticateAndLogUser()
-	// StartIntervalPlayerTracker(spotify_client)
-	session := InitializeMongodb()
+// func main() {
+// 	// spotify_client := AuthenticateAndLogUser()
+// 	// StartIntervalPlayerTracker(spotify_client)
+// 	session := InitializeMongodb()
 
-	c := session.DB("test").C("people")
-	err := c.Insert(&Person{"Ale", "+55 53 8116 9639"},
-		&Person{"Cla", "+55 53 8402 8510"})
-	if err != nil {
-		log.Fatal(err)
-	}
+// 	c := session.DB("test").C("people")
+// 	err := c.Insert(&Person{"Ale", "+55 53 8116 9639"},
+// 		&Person{"Cla", "+55 53 8402 8510"})
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
 
-	TeardownMongodb(session)
-}
+// 	TeardownMongodb(session)
+// }
