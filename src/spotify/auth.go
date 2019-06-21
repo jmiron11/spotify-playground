@@ -15,7 +15,7 @@ import (
 
 // This redirectURI must be registered with Spotify, matching the
 // CLIENT_KEY, CLIENT_SECRET specified in the environmental variables
-// The uri must also match the HTTP server setup later.
+// The uri must also match the HTTP server setup later
 const redirectURI = "http://localhost:8080/authcallback"
 
 var (

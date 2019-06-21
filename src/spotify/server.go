@@ -36,6 +36,9 @@ func Index(w http.ResponseWriter, r *http.Request) {
 func NowPlaying(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	var current_playing = GetUserCurrentlyPlayingTrack(spotify_client)
+	if current_playing == nil {
+		return
+	}
 	track_data := current_playing.Item
 	track := PlayingData{Artist: track_data.Artists[0].Name, Track: track_data.Name, Album: track_data.Album.Name, Progress: current_playing.Progress, Length: track_data.Duration}
 	if err := json.NewEncoder(w).Encode(track); err != nil {
